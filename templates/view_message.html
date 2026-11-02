@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#081226">
+  <title>Open Secret Message — SecureBurn</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="{{ url_for('static', filename='view.js') }}" defer></script>
+</head>
+<body data-message-id="{{ message_id }}">
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="/"><span class="brand-mark"><span>◆</span></span><span class="brand-copy"><strong>Secure<span>Burn</span></strong><small>Secret messages. Self-destruct.</small></span></a>
+      <div class="top-security"><span class="shield">⬡</span><span>One-time secret message</span></div>
+    </header>
+    <main class="reader-wrap">
+      <section class="panel reader-panel">
+        <div class="intro">
+          <div class="intro-icon">⬡</div>
+          <div><p class="eyebrow">PRIVATE MESSAGE</p><h1>Open your message</h1><p class="subtitle">Access is checked securely before the message is decrypted in your browser.</p></div>
+        </div>
+        <div class="unlock-fields">
+          <label class="field-label" for="accessTokenInput">Access token</label><input id="accessTokenInput" type="password" autocomplete="off" placeholder="Paste the access token">
+          <label class="field-label" for="passwordInput">Additional password (if set)</label><input id="passwordInput" type="password" autocomplete="off" placeholder="Enter the optional password">
+          <label class="field-label" for="secretKeyInput">Secret decryption key</label><input id="secretKeyInput" type="password" autocomplete="off" placeholder="Paste the secret key">
+          <button id="unlockBtn" class="primary-btn" type="button">Verify &amp; Decrypt</button>
+        </div>
+        <div id="status" class="status reader-status" role="status" aria-live="polite">Enter the separate credentials to unlock this item.</div>
+        <section id="messageBox" class="message-output hidden">
+          <label class="field-label" for="decryptedMessage">Decrypted message</label>
+          <pre id="decryptedMessage"></pre><div id="fileDownload" class="hidden"><p id="fileName"></p><a id="downloadFile" class="primary-btn" download>Download decrypted file</a></div>
+          <p class="warning">Do not share this message further. SecureBurn controls link access, but cannot prevent screenshots, copying, or a compromised recipient device.</p>
+        </section>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

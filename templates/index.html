@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#081226">
+  <title>SecureBurn — Secret Messages</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="{{ url_for('static', filename='app.js') }}" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="SecureBurn home">
+        <span class="brand-mark"><span>◆</span></span>
+        <span class="brand-copy"><strong>Secure<span>Burn</span></strong><small>Secret messages. Self-destruct.</small></span>
+      </a>
+      <nav class="top-nav"><a href="#how-it-works">How it works</a><a href="#security">Security</a></nav>
+      <div class="top-security"><span class="shield">⬡</span><span>Your message, your control</span></div>
+    </header>
+
+    <div class="layout">
+      <aside class="sidebar">
+        <div class="side-link active"><span class="side-icon">➤</span>New Message</div>
+        <a class="side-link" href="#how-it-works"><span class="side-icon">◷</span>How it works</a>
+        <div class="sidebar-bottom">
+          <div class="large-shield">⬡</div>
+          <p>Share what matters.<br>Keep it secret.</p>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <section class="composer panel">
+          <div class="intro">
+            <div class="intro-icon">➤</div>
+            <div>
+              <p class="eyebrow">PRIVATE BY DESIGN · AES-256-GCM</p>
+              <h1>Your Secrets. <span class="headline-accent">Your Control.</span></h1>
+              <p class="subtitle">Share encrypted messages with controlled access. Choose whether your message can be opened once or multiple times before it expires.</p>
+            </div>
+          </div>
+
+          <label class="field-label" for="message"><span class="label-icon">▤</span>Your Message</label>
+          <textarea id="message" maxlength="10000" placeholder="Write your secret message here..." required></textarea>
+          <div class="textarea-footer"><span>Keep it concise and private.</span><span id="charCount">0 / 10000</span></div>
+          <div class="option-card file-card">
+            <label class="field-label" for="fileInput">Attach a file (optional)</label>
+            <input id="fileInput" type="file" accept=".pdf,.docx,.xlsx,.txt,.png,.jpg,.jpeg,.webp">
+            <small id="fileInfo">PDF, DOCX, XLSX, TXT, PNG, JPG or WEBP · Maximum 8 MiB</small>
+          </div>
+          <div class="option-card password-card">
+            <label class="field-label" for="messagePassword">Additional password (optional)</label>
+            <input id="messagePassword" type="password" maxlength="128" autocomplete="new-password" placeholder="Create an extra password">
+            <small>Recipient must enter this password before the encrypted content is released.</small>
+          </div>
+
+          <div class="options-grid">
+            <div class="option-card">
+              <label class="field-label" for="expiry"><span class="label-icon">◷</span>Self-destruct after</label>
+              <select id="expiry">
+                <option value="1">1 minute</option>
+                <option value="2">2 minutes</option>
+                <option value="5" selected>5 minutes</option>
+                <option value="15">15 minutes</option>
+                <option value="30">30 minutes</option>
+                <option value="60">1 hour</option>
+                <option value="360">6 hours</option>
+                <option value="1440">24 hours</option>
+                <option value="custom">Enter a custom time…</option>
+              </select>
+              <div id="customExpiryWrap" class="custom-expiry hidden">
+                <label for="customExpiry">Custom time (minutes)</label>
+                <input id="customExpiry" type="number" min="1" max="1440" step="1" inputmode="numeric" placeholder="Enter minutes, e.g. 3">
+                <small>Enter a value from 1 to 1440 minutes.</small>
+              </div>
+            </div>
+            <div class="option-card one-time">
+              <div class="option-title"><span class="label-icon">⬡</span><label for="oneTime"><strong>One-time access</strong></label><label class="toggle-control" for="oneTime"><input id="oneTime" type="checkbox" checked aria-label="Enable one-time access"><span class="toggle-track" aria-hidden="true"></span></label></div>
+              <p id="accessHint">ON — the message can be opened once only.</p>
+            </div>
+          </div>
+
+          <button id="createBtn" class="primary-btn" type="button"><span>▣</span> Encrypt &amp; Create Link <b>→</b></button>
+          <div id="status" class="status" role="status" aria-live="polite"></div>
+
+          <section id="result" class="result-card hidden">
+            <div class="result-heading"><span class="result-check">✓</span><div><h2>Your secret link is ready</h2><p>Copy it and share it only with the intended recipient.</p></div></div>
+            <div class="result-field"><label>Share link (message ID only)</label><div class="link-row"><input id="shareLink" type="text" readonly aria-label="Secret message link"><button id="copyBtn" type="button" class="copy-btn">Copy link</button></div></div>
+            <div class="result-field"><label>Secret key — send separately</label><div class="link-row"><input id="secretKey" type="text" readonly aria-label="Secret key"><button id="copyKeyBtn" type="button" class="copy-btn">Copy key</button></div></div>
+            <div class="result-field"><label>Access token — send separately</label><div class="link-row"><input id="accessToken" type="text" readonly aria-label="Access token"><button id="copyTokenBtn" type="button" class="copy-btn">Copy token</button></div></div>
+            <p class="warning">Send the link, access token, secret key, and optional password through separate trusted channels. Anyone with all required values may access the content.</p>
+          </section>
+
+          <div class="crypto-footer" id="security">
+            <span class="mini-shield">⬡</span><span>Encrypted with <strong>AES-256-GCM</strong></span><i></i><span>Integrity protected with <strong>HMAC-SHA256</strong></span>
+          </div>
+        </section>
+
+        <section class="how panel" id="how-it-works">
+          <div><p class="eyebrow">SIMPLE &amp; SECURE</p><h2>How SecureBurn works</h2><p class="subtitle">Three steps, with the cryptography handled behind the scenes.</p></div>
+          <div class="steps">
+            <article><span>01</span><h3>Write</h3><p>Enter a message, set an expiry, and switch one-time access on or off.</p></article>
+            <article><span>02</span><h3>Encrypt</h3><p>AES-256-GCM encrypts the message in your browser.</p></article>
+            <article><span>03</span><h3>Share</h3><p>The recipient can open it once or multiple times, depending on your One-time access setting, until it expires.</p></article>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+</body>
+</html>
