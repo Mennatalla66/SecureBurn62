@@ -18,3 +18,19 @@ $('unlockBtn').addEventListener('click',async()=>{
  }catch(e){$('status').textContent=e.message||'Unable to unlock. Check your credentials and try again.';}
  finally{$('unlockBtn').disabled=false;}
 });
+// SecureBurn destruction animation
+function showBurnAnimation() {
+    const overlay = document.getElementById('burnOverlay');
+
+    if (!overlay) return;
+
+    overlay.classList.add('active');
+
+    setTimeout(() => {
+        const text = document.getElementById('burnText');
+
+        if (text) {
+            text.textContent = 'SECUREBURN';
+        }
+    }, 2200);
+}
