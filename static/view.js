@@ -1,3 +1,5 @@
+const { showBurnAnimation } = require("./showBurnAnimation");
+
 function fromB64u(value){const b=value.replace(/-/g,'+').replace(/_/g,'/');const raw=atob(b+'='.repeat((4-b.length%4)%4));return Uint8Array.from(raw,c=>c.charCodeAt(0));}
 const $=id=>document.getElementById(id);
 $('unlockBtn').addEventListener('click',async()=>{
@@ -18,27 +20,6 @@ $('unlockBtn').addEventListener('click',async()=>{
  }catch(e){$('status').textContent=e.message||'Unable to unlock. Check your credentials and try again.';}
  finally{$('unlockBtn').disabled=false;}
 });
-// SecureBurn destruction animation
-function showBurnAnimation() {
-    const overlay = document.getElementById('burnOverlay');
-    const text = document.getElementById('burnText');
-
-    if (!overlay || !text) {
-        console.error('Burn elements not found');
-        return;
-    }
-
-    text.textContent = 'MESSAGE DESTROYED';
-
-    overlay.classList.add('active');
-
-    // Restart animation
-    text.style.animation = 'none';
-    void text.offsetWidth;
-    text.style.animation = '';
-
-    console.log('SecureBurn animation started');
-}
 setTimeout(() => {
     showBurnAnimation();
 }, 3000);
