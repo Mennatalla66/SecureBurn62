@@ -16,13 +16,3 @@ $('status').textContent =
     }
 
 });
-
-
-// ================================
-// TEMPORARY ANIMATION TEST
-// Remove this after testing
-// ================================
-
-setTimeout(() => {
-    showBurnAnimation();
-}, 3000);
