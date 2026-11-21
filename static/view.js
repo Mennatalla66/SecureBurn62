@@ -39,6 +39,3 @@ function showBurnAnimation() {
 
     console.log('SecureBurn animation started');
 }
-setTimeout(() => {
-    showBurnAnimation();
-}, 3000);
