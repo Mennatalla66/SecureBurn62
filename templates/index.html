@@ -86,6 +86,13 @@
           <section id="result" class="result-card hidden">
             <div class="result-heading"><span class="result-check">✓</span><div><h2>Your secret link is ready</h2><p>Copy it and share it only with the intended recipient.</p></div></div>
             <div class="result-field"><label>Share link (message ID only)</label><div class="link-row"><input id="shareLink" type="text" readonly aria-label="Secret message link"><button id="copyBtn" type="button" class="copy-btn">Copy link</button></div></div>
+            <div class="link-row">
+    <input id="shareLink" type="text" readonly aria-label="Secret message link">
+
+    <button id="copyBtn" type="button" class="copy-btn">Copy link</button>
+
+    <button id="shareBtn" type="button" class="copy-btn">Share</button>
+</div>
             <div class="result-field"><label>Secret key — send separately</label><div class="link-row"><input id="secretKey" type="text" readonly aria-label="Secret key"><button id="copyKeyBtn" type="button" class="copy-btn">Copy key</button></div></div>
             <div class="result-field"><label>Access token — send separately</label><div class="link-row"><input id="accessToken" type="text" readonly aria-label="Access token"><button id="copyTokenBtn" type="button" class="copy-btn">Copy token</button></div></div>
             <p class="warning">Send the link, access token, secret key, and optional password through separate trusted channels. Anyone with all required values may access the content.</p>
