@@ -22,15 +22,14 @@ $('unlockBtn').addEventListener('click',async()=>{
 function showBurnAnimation() {
     const overlay = document.getElementById('burnOverlay');
 
-    if (!overlay) return;
+    if (!overlay) {
+        console.error('burnOverlay not found!');
+        return;
+    }
 
     overlay.classList.add('active');
-
-    setTimeout(() => {
-        const text = document.getElementById('burnText');
-
-        if (text) {
-            text.textContent = 'SECUREBURN';
-        }
-    }, 2200);
 }
+
+setTimeout(() => {
+    showBurnAnimation();
+}, 3000);
