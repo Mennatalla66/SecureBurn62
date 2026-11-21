@@ -21,15 +21,24 @@ $('unlockBtn').addEventListener('click',async()=>{
 // SecureBurn destruction animation
 function showBurnAnimation() {
     const overlay = document.getElementById('burnOverlay');
+    const text = document.getElementById('burnText');
 
-    if (!overlay) {
-        console.error('burnOverlay not found!');
+    if (!overlay || !text) {
+        console.error('Burn elements not found');
         return;
     }
 
-    overlay.classList.add('active');
-}
+    text.textContent = 'MESSAGE DESTROYED';
 
+    overlay.classList.add('active');
+
+    // Restart animation
+    text.style.animation = 'none';
+    void text.offsetWidth;
+    text.style.animation = '';
+
+    console.log('SecureBurn animation started');
+}
 setTimeout(() => {
     showBurnAnimation();
 }, 3000);
