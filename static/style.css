@@ -219,142 +219,101 @@ select { background:rgba(2,12,27,.7); }
 .toggle-control input:checked + .toggle-track { background:linear-gradient(90deg,#178df2,#3978ff); border-color:#5bb8ff; }
 .toggle-control input:checked + .toggle-track:after { transform:translateX(20px); }
 .toggle-control input:focus-visible + .toggle-track { outline:3px solid #7bc5ff; outline-offset:3px; }
-/* SecureBurn message destruction animation */
+/* ===== SecureBurn Destruction Animation ===== */
 
 .burn-overlay {
     position: fixed;
     inset: 0;
-    z-index: 9999;
+    z-index: 99999;
+    background: #080b14;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: #080b14;
+
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.5s ease;
+    pointer-events: none;
 }
 
 .burn-overlay.active {
     opacity: 1;
     visibility: visible;
+    pointer-events: auto;
 }
 
 .burn-text {
-    font-size: clamp(24px, 6vw, 48px);
-    font-weight: 800;
-    color: #ff6a22;
-    letter-spacing: 4px;
-    text-align: center;
-    animation: burnAway 2s forwards;
-}
-
-.burn-subtitle {
-    color: #aab3c5;
-    margin-top: 18px;
-    opacity: 0;
-    animation: revealText 1s ease 2s forwards;
-}
-
-@keyframes burnAway {
-    0% {
-        opacity: 1;
-        transform: scale(1);
-        filter: brightness(1);
-        text-shadow: 0 0 5px #ff6a22;
-    }
-
-    35% {
-        opacity: 1;
-        transform: scale(1.03);
-        filter: brightness(2);
-        text-shadow: 0 0 25px #ff4500;
-    }
-
-    65% {
-        opacity: 0.7;
-        transform: translateX(4px);
-        filter: blur(2px);
-    }
-
-    100% {
-        opacity: 0;
-        transform: translateY(-25px) scale(0.85);
-        filter: blur(10px);
-    }
-}
-
-@keyframes revealText {
-    to {
-        opacity: 1;
-    }
-}
-/* SecureBurn - Visible destruction effect */
-
-.burn-overlay.active {
-    opacity: 1;
-    visibility: visible;
-}
-
-.burn-text {
-    color: #ff6a00 !important;
-    font-size: 48px;
+    color: #ff6a00;
+    font-size: clamp(24px, 6vw, 50px);
     font-weight: 900;
     letter-spacing: 5px;
+    text-align: center;
+
     text-shadow:
         0 0 10px #ff6a00,
         0 0 30px #ff3300,
         0 0 60px #ff0000;
+}
 
-    animation: secureBurn 3s ease forwards !important;
+.burn-overlay.active .burn-text {
+    animation: secureBurn 3s ease forwards;
+}
+
+.burn-subtitle {
+    color: #ffffff;
+    font-size: 18px;
+    margin-top: 20px;
+    opacity: 0;
+}
+
+.burn-overlay.active .burn-subtitle {
+    animation: subtitleAppear 1s ease 1.5s forwards;
 }
 
 @keyframes secureBurn {
     0% {
         opacity: 1;
         transform: scale(1);
-        filter: blur(0);
+        filter: brightness(1) blur(0);
     }
 
     20% {
-        transform: scale(1.08);
+        transform: scale(1.1);
+        filter: brightness(2);
         text-shadow: 0 0 40px orange, 0 0 80px red;
     }
 
     40% {
-        transform: translateX(-5px) skewX(-5deg);
+        transform: translateX(-6px) skewX(-5deg);
     }
 
     60% {
-        transform: translateX(5px) skewX(5deg);
         opacity: 0.8;
-        filter: blur(2px);
+        transform: translateX(6px) skewX(5deg);
+        filter: blur(3px);
     }
 
     80% {
         opacity: 0.4;
-        filter: blur(6px);
         transform: scale(1.2);
+        filter: blur(8px);
     }
 
     100% {
         opacity: 0;
-        filter: blur(20px);
         transform: scale(1.5) translateY(-40px);
+        filter: blur(20px);
     }
 }
 
-.burn-subtitle {
-    color: white !important;
-    font-size: 18px;
-    animation: subtitleGlow 1.5s ease-in-out infinite alternate;
-}
-
-@keyframes subtitleGlow {
+@keyframes subtitleAppear {
     from {
-        opacity: 0.3;
+        opacity: 0;
+        transform: translateY(10px);
     }
+
     to {
         opacity: 1;
+        transform: translateY(0);
     }
 }
