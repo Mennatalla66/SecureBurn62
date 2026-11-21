@@ -37,4 +37,31 @@ createBtn.addEventListener('click',async()=>{
 $('copyBtn').addEventListener('click',()=>copyValue('shareLink'));
 $('copyKeyBtn').addEventListener('click',()=>copyValue('secretKey'));
 $('copyTokenBtn').addEventListener('click',()=>copyValue('accessToken'));
+// Share SecureBurn link using the device share menu
+$('shareBtn').addEventListener('click', async () => {
+    const link = $('shareLink').value;
+
+    if (!link) {
+        statusBox.textContent = 'Create a message first.';
+        return;
+    }
+
+    if (navigator.share) {
+        try {
+            await navigator.share({
+                title: 'SecureBurn secret message',
+                text: 'Open this SecureBurn link to access the encrypted message:',
+                url: link
+            });
+        } catch (error) {
+            if (error.name !== 'AbortError') {
+                statusBox.textContent = 'Sharing failed. Use Copy link instead.';
+            }
+        }
+    } else {
+        copyValue('shareLink');
+        statusBox.textContent =
+            'Sharing is not supported. Link copied—paste it into your app.';
+    }
+});
 
